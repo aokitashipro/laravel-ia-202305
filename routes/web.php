@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactFormController;
-use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +24,6 @@ Route::get('/contact_form/{id}/edit', [ContactFormController::class, 'edit'])->n
 Route::post('/contact_form/{id}', [ContactFormController::class, 'update'])->name('contact.update');
 Route::post('/contact_form/{id}/delete', [ContactFormController::class, 'delete'])->name('contact.delete');
 
-Route::resource('books', BookController::class);
- 
 
 Route::get('/', function () {
     return view('welcome');
