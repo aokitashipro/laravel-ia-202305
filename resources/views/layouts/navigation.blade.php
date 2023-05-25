@@ -16,7 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('cafes.index')" :active="request()->routeIs('cafes.index')">
-                        カフェ情報
+                        カフェ一覧
+                    </x-nav-link>
+                    <x-nav-link :href="route('furnitures.index')" :active="request()->routeIs('furnitures.index')">
+                        家具一覧
                     </x-nav-link>
                 </div>
             </div>
@@ -74,7 +77,10 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('cafes.index')" :active="request()->routeIs('cafes.index')">
-                カフェ情報
+                カフェ一覧
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('furnitures.index')" :active="request()->routeIs('furnitures.index')">
+                家具一覧
             </x-responsive-nav-link>
         </div>
 
