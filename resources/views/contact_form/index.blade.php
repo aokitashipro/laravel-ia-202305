@@ -2,7 +2,6 @@
 @foreach ($errors->all() as $error)
     <li> <span class="error">{{ $error }}</span></li>
 @endforeach
-
 <form action="{{ route('contact.confirm')}}" method="post">
   @csrf
   <div>
