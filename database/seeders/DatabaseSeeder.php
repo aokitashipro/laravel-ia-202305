@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
         // DatabaseSeederの中で
         // それぞれのシーダーファイルを読み出す
         $this->call([
-            ContactsSeeder::class
+            ContactsSeeder::class,
+            BookSeeder::class
         ]);
 
         // \App\Models\User::factory(10)->create();
