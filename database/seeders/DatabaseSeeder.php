@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         // DatabaseSeederの中で
         // それぞれのシーダーファイルを読み出す
         $this->call([
+            UserSeeder::class,
             ContactsSeeder::class,
             BookSeeder::class
         ]);
