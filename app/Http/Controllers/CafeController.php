@@ -32,14 +32,13 @@ class CafeController extends Controller
      */
     public function store(Request $request)
     {
-        // validation
-        // $validated = $request->validate([
-        //     'name' => ['required', 'min:2', 'max:50'],
-        //     'prefecture' => ['required'],
-        //     'address' => ['required', 'max:100'],
-        //     'review' => ['required', 'min:2', 'max:20'],
-        //     'is_visible' => ['required', 'boolean'],
-        // ]);
+        $validated = $request->validate([
+            'name' => ['required', 'min:2', 'max:50'],
+            'prefecture' => ['required'],
+            'address' => ['required', 'max:100'],
+            'review' => ['required', 'numeric', 'between:1,5', 'decimal:0,1'],
+            'is_visible' => ['required', 'boolean'],
+        ]);
 
         Cafe::create([
             'name' => $request->name,
@@ -78,6 +77,14 @@ class CafeController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validated = $request->validate([
+            'name' => ['required', 'min:2', 'max:50'],
+            'prefecture' => ['required'],
+            'address' => ['required', 'max:100'],
+            'review' => ['required', 'numeric', 'between:1,5', 'decimal:0,1'],
+            'is_visible' => ['required', 'boolean'],
+        ]);
+        
         $cafe = Cafe::findOrFail($id);
         $cafe->name = $request->name;
         $cafe->prefecture = $request->prefecture;

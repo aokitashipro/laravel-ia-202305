@@ -10,6 +10,9 @@
             <div class="p-6 text-gray-900">
               <div class="flex justify-center">     
               <div class="lg:w-1/2 md:w-2/3 mx-auto">
+              @foreach ($errors->all() as $error)
+              <li> <span class="error">{{ $error }}</span></li>
+            @endforeach
       <form action="{{ route('cafes.store')}}" method="post">
         @csrf
           <div class="p-2 w-full">
