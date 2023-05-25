@@ -16,11 +16,12 @@ class DatabaseSeeder extends Seeder
         // それぞれのシーダーファイルを読み出す
         $this->call([
             UserSeeder::class,
+            CafeSeeder::class,
             ContactsSeeder::class,
             BookSeeder::class
         ]);
 
-        // \App\Models\User::factory(10)->create();
+        \App\Models\Furniture::factory(200)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
