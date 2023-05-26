@@ -18,6 +18,7 @@ class FurnitureController extends Controller
         // $request->min_price = 100;
         // $request->max_price = 1000;
         // $furnitures = Furniture::search($request)->toSql();
+        // dd($request);
         $furnitures = Furniture::search($request)->get();
 
         // dd($furnitures);

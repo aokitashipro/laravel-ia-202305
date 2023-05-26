@@ -31,10 +31,10 @@ class Furniture extends Model
         if(!is_null($request->min_price) && !is_null($request->max_price) )
         {
             $query->whereBetween('price', [$request->min_price, $request->max_price]);
-        } else if (!is_null($request->min_price)){
-            $query->where('price' >= $request->min_price );
-        } else if(!is_null($request->min_price)){
-            $query->where('price' <= $request->max_price );
+        } else if (!is_null($request->min_price) && is_null($request->max_price)){
+            $query->where('price', '>=', $request->min_price );
+        } else if (is_null($request->min_price) && !is_null($request->max_price)){
+            $query->where('price', '<=', $request->max_price );
         } else {
             $query;
         }
