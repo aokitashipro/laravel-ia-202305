@@ -18,10 +18,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CafeSeeder::class,
             ContactsSeeder::class,
-            BookSeeder::class
+            BookSeeder::class,
+            InitializeCoachesAndTeamsSeeder::class,
+            InitializePlayersTableSeeder::class
         ]);
 
-        \App\Models\Furniture::factory(200)->create();
+        \App\Models\Furniture::factory(2)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
