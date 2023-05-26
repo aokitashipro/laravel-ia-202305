@@ -22,8 +22,12 @@ class Furniture extends Model
         // $request->order;
         if($request->order === 'latest'){        
             $query->orderBy('created_at', 'desc');
-        } else {
+        } else if($request->order === 'review') {
             $query->orderBy('review', 'desc');
+        } else if($request->order === 'low_price'){
+            $query->orderBy('price', 'asc');
+        } else if($request->order === 'high_price'){
+            $query->orderBy('price', 'desc');
         }
     
         // $request->min_price;

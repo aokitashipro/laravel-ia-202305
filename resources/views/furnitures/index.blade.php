@@ -24,6 +24,8 @@
                     <select name="order">
                       <option value="latest">新着順</option>
                       <option value="popular">人気順</option>
+                      <option value="low_price">安い順</option>
+                      <option value="high_price">高い順</option>
                     </select>
                   </div>
                   <div>
