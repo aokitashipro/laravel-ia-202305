@@ -12,16 +12,17 @@ class FurnitureController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        dd($request);
-
-        $furnitures = Furniture::where('is_visible', true)
-        ->select('id', 'name')
-        ->get();
+    {       
+        // $request->prefecture == '1';
+        // $request->order = 'latest';
+        // $request->min_price = 100;
+        // $request->max_price = 1000;
+        // $furnitures = Furniture::search($request)->toSql();
+        $furnitures = Furniture::search($request)->get();
 
         // dd($furnitures);
 
-        return view('furnitures.index');
+        return view('furnitures.index', compact('furnitures'));
     }
 
     /**

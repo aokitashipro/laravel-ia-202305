@@ -40,6 +40,25 @@
                 </div>
               </form>
                 </div>
+                {{-- output --}}
+                <table>
+                  <tr>
+                    <th>都道府県</th>
+                    <th>品名</th>
+                    <th>価格</th>
+                    <th>評価</th>
+                    <th>登録日</th>
+                  </tr>
+                @foreach($furnitures as $furniture)
+                <tr>
+                  <td>{{ $furniture->prefecture }}</td>
+                  <td>{{ $furniture->name }}</td>
+                  <td>{{ $furniture->price }}</td>
+                  <td>{{ $furniture->review }}</td>
+                  <td>{{ $furniture->created_at }}</td>
+                </tr>
+                @endforeach
+                </table>
             </div>
         </div>
     </div>
