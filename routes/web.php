@@ -7,6 +7,9 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\SampleController;
 use App\Http\Controllers\CafeController;
 use App\Http\Controllers\FurnitureController;
+use App\Models\Coach;
+use App\Models\Team;
+
 
 Route::get('/sample', [SampleController::class, 'index'])->name('sample.index');
 
@@ -40,3 +43,40 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/coach', function(){
+    /* Coach モデルを通じて、coaches テーブルの内容をすべて取得 */
+    $all_coaches = Coach::all();
+    foreach($all_coaches as $coach){
+        /* $coach->teamで、関連付けされたteams テーブルのレコードの内容を取得できる */
+        print("<p>監督名： {$coach->name} (担当チーム名： {$coach->team->name})</p>");
+    }
+});
+
+
+Route::get('/team', function(){
+    /* Team モデルを通じて、teams テーブルのデータをすべて取得 */
+    $all_teams = Team::all();
+    // dd($all_teams); 複数のinstance Teamのinstance (複数)
+
+    foreach($all_teams as $team){
+        /* $team->playersで、関連付けされたteams テーブルのレコードの内容を取得できる */
+        print("<h2>チーム名： {$team->name}</h2>");
+        print("<p>所属プレイヤー</p>");
+        print('<ul>');
+            /* Team モデルとPlayer モデルのリレーションは一対多(hasMany)
+             * 複数データが取得されるため、foreachでループしてひとつずつ処理する
+             */
+            // dd($team); teamのinstance １つ
+            // dd($team->players); // Playeのinstance(複数)
+            foreach($team->players as $player) {
+                // dd($player); // Playerのinstance(1つ)
+                print("<li>{$player->name}</li>");
+            }
+        print('</ul>');
+    }
+});
+
+
+
+
