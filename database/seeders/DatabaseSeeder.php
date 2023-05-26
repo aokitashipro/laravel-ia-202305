@@ -20,7 +20,11 @@ class DatabaseSeeder extends Seeder
             ContactsSeeder::class,
             BookSeeder::class,
             InitializeCoachesAndTeamsSeeder::class,
-            InitializePlayersTableSeeder::class
+            InitializePlayersTableSeeder::class,
+            // 各テーブルのダミー入れてから
+            // 中間テーブルのダミー
+            InitializePositionsTableSeeder::class,
+            InitializePlayerPositionTableSeeder::class
         ]);
 
         \App\Models\Furniture::factory(2)->create();
