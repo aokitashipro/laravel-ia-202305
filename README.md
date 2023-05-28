@@ -27,15 +27,28 @@ php artisan serve
 npm run dev
 
 ## Docker/Sailの場合
-cp .env.example .env
+// phpとcomposerを含む最小のDockerコンテナを使い アプリ依存関係をインストールする
+
+docker run --rm \<br>
+    -u "$(id -u):$(id -g)" \<br>
+    -v $(pwd):/var/www/html \<br>
+    -w /var/www/html \<br>
+    laravelsail/php82-composer:latest \<br>
+    composer install --ignore-platform-reqs<br>
+
 
 ./vendor/bin/sail up -d
 
-./vendor/bin/sail artisan key:generate
+cp .env.example .env
 
-./vendor/bin/sail composer install
+vi .env 
+
+// DB_HOSTをmysqlに変える<br>
+DB_HOST=mysql 
+
+
+./vendor/bin/sail artisan key:generate
 
 ./vendor/bin/sail npm install
 
 ./vendor/bin/sail npm run dev 
-
