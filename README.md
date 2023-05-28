@@ -44,6 +44,7 @@ cp .env.example .env
 vi .env 
 
 // DB_HOSTをmysqlに変える
+
 DB_HOST=mysql 
 
 
