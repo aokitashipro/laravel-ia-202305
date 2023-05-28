@@ -29,12 +29,12 @@ npm run dev
 ## Docker/Sailの場合
 // phpとcomposerを含む最小のDockerコンテナを使い アプリ依存関係をインストールする
 
-docker run --rm \<br>
-    -u "$(id -u):$(id -g)" \<br>
-    -v $(pwd):/var/www/html \<br>
-    -w /var/www/html \<br>
-    laravelsail/php82-composer:latest \<br>
-    composer install --ignore-platform-reqs<br>
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php82-composer:latest \
+    composer install --ignore-platform-reqs
 
 
 ./vendor/bin/sail up -d
@@ -43,7 +43,7 @@ cp .env.example .env
 
 vi .env 
 
-// DB_HOSTをmysqlに変える<br>
+// DB_HOSTをmysqlに変える
 DB_HOST=mysql 
 
 
