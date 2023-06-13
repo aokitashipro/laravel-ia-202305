@@ -29,7 +29,8 @@
 ## Docker/Sailの場合
 // phpとcomposerを含む最小のDockerコンテナを使い アプリ依存関係をインストールする
 
-```docker run --rm \
+```
+docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v $(pwd):/var/www/html \
     -w /var/www/html \
