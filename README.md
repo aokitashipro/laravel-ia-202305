@@ -34,22 +34,21 @@
     -v $(pwd):/var/www/html \
     -w /var/www/html \
     laravelsail/php82-composer:latest \
-    composer install --ignore-platform-reqs```
+    composer install --ignore-platform-reqs
 
 
-```./vendor/bin/sail up -d```
+./vendor/bin/sail up -d
 
-```cp .env.example .env```
+cp .env.example .env
 
-```vi .env```
+vi .env
 
 // DB_HOSTをmysqlに変える
 
-```DB_HOST=mysql```
+DB_HOST=mysql
 
+./vendor/bin/sail artisan key:generate
 
-```./vendor/bin/sail artisan key:generate```
+./vendor/bin/sail npm install
 
-```./vendor/bin/sail npm install```
-
-```./vendor/bin/sail npm run dev```
+./vendor/bin/sail npm run dev
