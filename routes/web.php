@@ -7,12 +7,15 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\SampleController;
 use App\Http\Controllers\CafeController;
 use App\Http\Controllers\FurnitureController;
+use App\Http\Controllers\MessageBoardController;
 use App\Models\Coach;
 use App\Models\Team;
 use App\Models\Player;
 
 
 Route::get('/sample', [SampleController::class, 'index'])->name('sample.index');
+
+Route::resource('messages', MessageBoardController::class);
 
 // DBに保存する時はpostです
 // ルートは上から処理される 
