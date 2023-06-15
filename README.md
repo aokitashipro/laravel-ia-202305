@@ -53,3 +53,10 @@ DB_HOST=mysql
 ./vendor/bin/sail npm install
 
 ./vendor/bin/sail npm run dev
+
+## 追加・補足
+
+ストレージのリンク
+- php artisan storage:link
+- sail artisan storage:link
+
