@@ -16,19 +16,40 @@ class SaleController extends Controller
         ->get();
 
         //2. 2020年の売上額と売上数を表示してください。
-        $no2 = Sale::selectRaw('date_format(created_at, "%Y") as year')
+        $no2 = Sale::selectRaw('extract(year from created_at) as year')
         ->groupBy('year')
         ->having('year', 2020)
-        ->selectRaw('sum(price), sum(amount)')
+        ->selectRaw('sum(price * amount), sum(amount)')
         ->get();
+ 
 
         //3. 2021年の売上金額、売上数をカテゴリー毎に表示してください。(売上 金額の多い順)
+        $no3 = Sale::selectRaw('extract(year from created_at) as year')
+        ->groupBy('year')
+        ->groupBy('category_id')
+        ->having('year', 2021)
+        ->selectRaw('category_id, sum(price * amount), sum(amount)')
+        ->orderBy('category_id')
+        ->get();
 
         // 4. 2022年の月ごとの売上額と売上数を表示してください。 
-
+        $no4 = Sale::selectRaw('extract(year_month from created_at) as yearMonth')
+        ->whereYear('created_at', 2022)
+        ->groupBy('yearMonth')
+        ->selectRaw('sum(price * amount), sum(amount)')
+        ->orderBy('yearMonth', 'asc')
+        ->get();
+        
         // 5. 2019年に最も売れたカテゴリーを表示してください。(金額も表示)
+        $no5 = Sale::selectRaw('extract(year from created_at) as year')
+        ->whereYear('created_at', 2019)
+        ->groupBy('year')
+        ->groupBy('category_id')
+        ->selectRaw('category_id, sum(price * amount) as total, sum(amount)')
+        ->orderBy('total', 'desc')
+        ->get();
 
-        dd($no1, $no2);
+        dd($no1, $no2, $no3, $no4, $no5 );
 
 
         // all か find なら クエリ確定してデータ取得
