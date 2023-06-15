@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ContactsSeeder::class,
             BookSeeder::class,
             MessageBoardSeeder::class,
+            CategorySeeder::class,
             InitializeCoachesAndTeamsSeeder::class,
             InitializePlayersTableSeeder::class,
             // 各テーブルのダミー入れてから
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Furniture::factory(2)->create();
+        \App\Models\Sale::factory(1000)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

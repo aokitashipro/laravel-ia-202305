@@ -10,10 +10,12 @@ use App\Http\Controllers\CafeController;
 use App\Http\Controllers\FurnitureController;
 use App\Http\Controllers\MessageBoardController;
 use App\Http\Controllers\UploadImageController;
+use App\Http\Controllers\SaleController;
 use App\Models\Coach;
 use App\Models\Team;
 use App\Models\Player;
 
+Route::get('/sale-training', [SaleController::class, 'index']);
 
 Route::get('/sample', [SampleController::class, 'index'])->name('sample.index');
 
