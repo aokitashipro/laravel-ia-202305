@@ -71,6 +71,9 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+
+        /* /images/<ファイル名> でアクセスできるようにシンボリックリンクを作成する */
+        public_path('images') => storage_path('app/public/images'),
     ],
 
 ];

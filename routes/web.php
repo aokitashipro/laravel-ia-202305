@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\SampleController;
 use App\Http\Controllers\CafeController;
 use App\Http\Controllers\FurnitureController;
 use App\Http\Controllers\MessageBoardController;
+use App\Http\Controllers\UploadImageController;
 use App\Models\Coach;
 use App\Models\Team;
 use App\Models\Player;
@@ -132,6 +134,38 @@ Route::get('player', function(){
     }
 });
 
+
+
+/* 画像アップロードフォームを表示するルーティング */
+Route::get('upload_form', function(){
+    return view('upload_form');
+});
+
+/* POST 送信された画像を受け取って保存するルーティング */
+Route::post('upload_form', [UploadImageController::class, 'upload'])->name('image.store');
+
+/* アップロードされた画像の一覧を表示するルーティング */
+Route::get('upload_images', [UploadImageController::class, 'index']);
+
+
+
+
+/* Storage ファサードを使ってファイルの操作をしてみる */
+Route::get('storage_test', function(){
+    /* タイムスタンプを含めたテキストファイル名を作成 */
+    $filename = time(). '.txt';
+    /* テキストファイルの内容を作成 */
+    $content = "ファイル名: {$filename}";
+
+    /* Storage::put(<ファイルパス>, <内容>) で、ファイルを作成
+     * ファイル名だけ記載した場合は、操作対象のdisk の直下に作成される
+     */
+    Storage::put($filename, $content);
+
+    /* Storage::files(ファイルパス) で、ファイルの一覧を取得 */
+    $files = Storage::files();
+    dump($files);
+});
 
 
 
