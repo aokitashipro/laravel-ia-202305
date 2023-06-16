@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sale; // モデルを読み込む
+use App\Models\Category;
 
 class SaleController extends Controller
 {
@@ -233,6 +234,59 @@ class SaleController extends Controller
 
     }
 
+
+    public function relation()
+    {
+        //クエリスコープ (ローカル)
+        // dd(Sale::latestTenItems()->get());
+
+         // 1件ならそのまま取れる
+        $sale = Sale::find(1);
+
+        // $sale->リレーションメソッド
+        $relatedOne = $sale->category->name;
+        // dd($sale, $relatedOne);
+
+        // 複数ならforeachで1件ずつ表示
+        // view側でforeach使って表示可能
+        $sales = Sale::limit(10)->get();
+
+        // 実際はView側でやる
+        foreach($sales as $sale)
+        {
+            // dd($sale->category->name);
+        }
+
+
+        // 1つのカテゴリーで複数の商品を持つので
+        // foreachで1件ずつ表示必要
+        $category = Category::find(1);
+
+        // インスタンス->リレーションメソッド
+        // foreach(複数形 as 単数系)
+        // 本来は View側でforeachかける
+        foreach($category->sales as $sale)
+        {
+            // var_dump($sale->id, $sale->name, $sale->price );
+        }
+
+
+        // カテゴリーが複数あれば
+        // foreach2回必要
+        // 本来は View側でやります
+        $categories = Category::all();
+        foreach($categories as $category)
+        {
+            var_dump($category->name);
+
+            foreach($category->sales as $sale)
+            {
+                var_dump($sale->name);
+            }
+        }
+    
+
+    }
 
     public function index()
     {       

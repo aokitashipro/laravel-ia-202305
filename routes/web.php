@@ -24,6 +24,8 @@ Route::get('/sale-trainingD', [SaleController::class, 'trainingD']);
 Route::get('/sale-collectionA', [SaleController::class, 'collectionA']);
 Route::get('/sale-collectionB', [SaleController::class, 'collectionB']);
 
+Route::get('/sale-relation', [SaleController::class, 'relation']);
+
 
 Route::get('/sample', [SampleController::class, 'index'])->name('sample.index');
 
