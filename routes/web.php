@@ -16,6 +16,14 @@ use App\Models\Team;
 use App\Models\Player;
 
 Route::get('/sale-training', [SaleController::class, 'index']);
+Route::get('/sale-trainingA', [SaleController::class, 'trainingA']);
+Route::get('/sale-trainingB', [SaleController::class, 'trainingB']);
+Route::get('/sale-trainingC', [SaleController::class, 'trainingC']);
+Route::get('/sale-trainingD', [SaleController::class, 'trainingD']);
+
+Route::get('/sale-collectionA', [SaleController::class, 'collectionA']);
+Route::get('/sale-collectionB', [SaleController::class, 'collectionB']);
+
 
 Route::get('/sample', [SampleController::class, 'index'])->name('sample.index');
 
