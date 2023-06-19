@@ -11,9 +11,26 @@ use App\Http\Controllers\FurnitureController;
 use App\Http\Controllers\MessageBoardController;
 use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ManyToManyTestController;
 use App\Models\Coach;
 use App\Models\Team;
 use App\Models\Player;
+
+Route::middleware('auth')->prefix('items')
+->name('items.')->group(function () {
+    Route::get('/', [ManyToManyTestController::class, 'index'])->name('index');
+    Route::get('/purchase', [ManyToManyTestController::class, 'purchase'])->name('purchase');    
+    Route::post('/', [ManyToManyTestController::class, 'store'])->name('store');
+    Route::get('/purchase-history', [ManyToManyTestController::class, 'purchaseHistory'])->name('purchaseHistory');
+    Route::get('/point-history', [ManyToManyTestController::class, 'pointHistory'])->name('pointHistory');
+});
+
+Route::middleware(['auth', 'can:paid-user'])->get('items/paid', function(){
+    return '有料ユーザーだけ見えるよ';
+});
+
+
+
 
 Route::get('/sale-training', [SaleController::class, 'index']);
 Route::get('/sale-trainingA', [SaleController::class, 'trainingA']);

@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
         // それぞれのシーダーファイルを読み出す
         $this->call([
             UserSeeder::class,
+            ItemSeeder::class, // 追記
+            PurchaseHistorySeeder::class, // 追記
+
             CafeSeeder::class,
             ContactsSeeder::class,
             BookSeeder::class,
@@ -30,7 +33,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Furniture::factory(2)->create();
-        \App\Models\Sale::factory(1000)->create();
+        \App\Models\Sale::factory(2)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
