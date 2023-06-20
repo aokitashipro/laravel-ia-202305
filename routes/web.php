@@ -12,9 +12,29 @@ use App\Http\Controllers\MessageBoardController;
 use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ManyToManyTestController;
+use App\Http\Controllers\SkillController;
 use App\Models\Coach;
 use App\Models\Team;
 use App\Models\Player;
+
+Route::middleware('auth')->prefix('skills')
+->name('skills.')->group(function () {
+    Route::get('/', [SkillController::class, 'index'])->name('index');
+    Route::get('/{id}/edit', [SkillController::class, 'edit'])->name('edit');    
+    Route::post('/{id}', [SkillController::class, 'update'])->name('update');
+    // スキル持ってなければ0表示
+    Route::get('/zero-index', [SkillController::class, 'zeroIndex'])->name('zeroIndex');
+    Route::get('/{id}/zero-edit', [SkillController::class, 'zeroEdit'])->name('zeroEdit');
+    Route::post('/{id}/zero-update', [SkillController::class, 'zeroUpdate'])->name('zeroUpdate');
+});
+
+Route::middleware(['auth', 'can:manager'])
+->prefix('skills')->name('skills.')->group(function () {
+    Route::get('/skills-all', [SkillController::class, 'showSkillsAll'])->name('skillsAll');
+    Route::get('/create', [SkillController::class, 'create'])->name('create');
+    Route::post('/', [SkillController::class, 'store'])->name('store');
+});
+
 
 Route::middleware('auth')->prefix('items')
 ->name('items.')->group(function () {
@@ -28,8 +48,6 @@ Route::middleware('auth')->prefix('items')
 Route::middleware(['auth', 'can:paid-user'])->get('items/paid', function(){
     return '有料ユーザーだけ見えるよ';
 });
-
-
 
 
 Route::get('/sale-training', [SaleController::class, 'index']);
@@ -195,17 +213,5 @@ Route::get('storage_test', function(){
     $files = Storage::files();
     dump($files);
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 

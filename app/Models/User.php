@@ -36,8 +36,10 @@ class User extends Authenticatable
         ->withPivot('price', 'amount', 'created_at');
     }
 
-
-
+    public function skills(){
+        return $this->belongsToMany(Skill::class)
+        ->withPivot('score', 'created_at');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ItemSeeder::class, // 追記
             PurchaseHistorySeeder::class, // 追記
-
+            SkillSeeder::class,
             CafeSeeder::class,
             ContactsSeeder::class,
             BookSeeder::class,
