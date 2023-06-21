@@ -16,7 +16,12 @@ class SkillController extends Controller
     {
         $user = User::find(Auth::id());
 
-        return view('skills.index', compact('user'));
+        // paginationを使うには
+        // get()の箇所を paginate() に変える
+        // 件数を指定する
+        $skills = Skill::select('id', 'name')->paginate(3);
+
+        return view('skills.index', compact('user', 'skills'));
     }
     public function edit($id)
     {

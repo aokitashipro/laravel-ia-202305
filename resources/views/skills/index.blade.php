@@ -26,8 +26,14 @@
                       </tr>
                     @endforeach
                     </table>
-                </div>
+                    @foreach($skills as $skill)
+                    {{ $skill->id}} : {{$skill->name}}
+                    @endforeach
+
+                    {{ $skills->links() }}
+                  </div>
             </div>
         </div>
     </div>
+
 </x-app-layout>
