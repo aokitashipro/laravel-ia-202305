@@ -17,13 +17,31 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        $guards = empty($guards) ? [null] : $guards;
+        // ログインしている人が
+        // login/registerページ表示しようとしたら
+        // リダイレクトかける (セッションの絡み)
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
-            }
-        }
+        // $guards = empty($guards) ? [null] : $guards;
+
+        // foreach ($guards as $guard) {
+        //     if (Auth::guard($guard)->check()) {
+        //         return redirect(RouteServiceProvider::HOME);
+        //     }
+        // }
+
+        // config/auth.phpでガード設定をかけたので
+        // Auth::guard('users');
+        // Auth::guard('owners');
+
+
+        if(Auth::guard('users')->check() && $request->routeIs('user.*')){
+            return redirect(RouteServiceProvider::HOME);
+          }
+  
+          if(Auth::guard('owners')->check() && $request->routeIs('owner.*')){
+            return redirect(RouteServiceProvider::OWNER_HOME);
+          }
+
 
         return $next($request);
     }

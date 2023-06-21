@@ -125,10 +125,17 @@ return [
     | new session cookie is created by the framework for every driver.
     |
     */
-
+    // セッション認証する時に
+    // laravel_sesson という名前のクッキーが使われる
     'cookie' => env(
         'SESSION_COOKIE',
         Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
+    ),
+
+    // laravel_session_owner という名前のクッキー
+    'cookie_owner' => env(
+        'SESSION_COOKIE_OWNER',
+        Str::slug(env('APP_NAME', 'laravel'), '_').'_session_owner'
     ),
 
     /*
