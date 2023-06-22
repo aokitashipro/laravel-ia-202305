@@ -5,15 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Skill;
 use App\Models\User;
+use App\Mail\TestMail; // メールのクラス(Mailable)
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail; // メール送信用
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SkillStoreRequest;
 use App\Http\Requests\SkillUpdateRequest;
+use App\Jobs\SendMailJob; // ジョブを読み込む
 
 class SkillController extends Controller
 {
     public function index()
     {
+
+        // 同期 宛先、Mailableクラスを送信
+        // Mail::to('test@gmail.com')->send(new TestMail());
+
+        // 非同期 Job を使ってメール送信
+        SendMailJob::dispatch();
+
+
         $user = User::find(Auth::id());
 
         // paginationを使うには
