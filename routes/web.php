@@ -13,6 +13,7 @@ use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ManyToManyTestController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\AnalysisController;
 use App\Models\Coach;
 use App\Models\Team;
 use App\Models\Player;
@@ -94,6 +95,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth:users', 'verified'])->name('dashboard');
 
 Route::middleware('auth:users')->group(function () {
+    Route::get('/analysis', [AnalysisController::class, 'index'])->name('analysis.index');
     Route::resource('cafes', CafeController::class);
     Route::resource('furnitures', FurnitureController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

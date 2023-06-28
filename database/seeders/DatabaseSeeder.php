@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Furniture::factory(2)->create();
-        \App\Models\Sale::factory(2)->create();
+        \App\Models\Sale::factory(100)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

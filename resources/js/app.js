@@ -1,5 +1,4 @@
 import './bootstrap';
-
 import Alpine from 'alpinejs';
 
 import MicroModal from 'micromodal';  // es6 module
