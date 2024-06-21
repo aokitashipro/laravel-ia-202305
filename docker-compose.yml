@@ -30,6 +30,7 @@ services:
             - selenium
     mysql:
         image: 'mysql/mysql-server:8.0'
+        platform: linux/x86_64
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -93,6 +94,7 @@ services:
             - sail
     selenium:
         image: selenium/standalone-chrome
+        platform: linux/x86_64
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         volumes:
@@ -101,6 +103,7 @@ services:
             - sail
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
+        platform: linux/x86_64
         links:
             - mysql:mysql
         ports:
