@@ -26,7 +26,7 @@
   <script>
   // phpの変数を jsの変数に置き換える必要がある
   // phpのjson_encodeやjsonディレクティブで対応
-  const year = @json($year);
+  const year = <?php echo json_encode($year); ?>;
   const yearArray = @json($yearArray);
   const salesArray = @json($salesArray);
 
