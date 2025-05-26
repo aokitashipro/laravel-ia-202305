@@ -58,7 +58,7 @@ class SaleController extends Controller
         ->orderBy('category_id', 'asc')->get();
         
         // 12. 2023年に販売された商品の中で最も売れた商品を見つけてください。
-        $no12 = Sale::whereYear('created_at', date('Y'))->orderBy('amount', 'desc')->first();
+        $no12 = Sale::whereYear('created_at', 2023)->orderBy('amount', 'desc')->first();
         
         // 13. 年別の最高売上商品を取得してください。
         $no13 = Sale::selectRaw('year(created_at) as year, max(price * amount) as max_amount')
@@ -69,7 +69,8 @@ class SaleController extends Controller
         $no14 = Sale::whereYear('created_at', date('Y'))->sum('price');
 
         // 15. 2020年12月の売上を取得してください。
-        $no15 = Sale::selectRaw('extract(year_month from created_at) as yearMonth')
+        $no15 = Sale::whereYear('created_at', 2020)
+        ->whereMonth('created_at', 12)
         ->groupBy('yearMonth')
         ->having('yearMonth', '202012')
         ->selectRaw('sum(price * amount)')
@@ -82,20 +83,20 @@ class SaleController extends Controller
     public function trainingD()
     {
         //16. 最も売上金額が多かった日を検索し、売上順に30件表示してください
-        $no16 = Sale::orderBy('price', 'desc')
-        ->limit(30)
-        ->select('name', 'price', 'created_at')
+        $no16 = Sale::selectRaw('DATE(created_at) as date, sum(price*amount) as total')
+        ->groupBy('date')
+        ->orderByDesc('total')
         ->get();
 
         //17. 2020年の売上額と売上数を表示してください。
-        $no17 = Sale::selectRaw('extract(year from created_at) as year')
+        $no17 = Sale::whereYear('created_at', 2020)
         ->groupBy('year')
         ->having('year', 2020)
         ->selectRaw('sum(price * amount), sum(amount)')
         ->get();
 
         //18. 2021年の売上金額、売上数をカテゴリー毎に表示してください。(売上 金額の多い順)
-        $no18 = Sale::selectRaw('extract(year from created_at) as year')
+        $no18 = Sale::whereYear('created_at', 2020)
         ->groupBy('year')
         ->groupBy('category_id')
         ->having('year', 2021)
