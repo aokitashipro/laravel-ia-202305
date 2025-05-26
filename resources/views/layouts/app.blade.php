@@ -15,8 +15,13 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-blue-100">
+            
+        @if(request()->is('owner*'))
+            @include('layouts.owner-navigation')
+        @else
             @include('layouts.navigation')
+        @endif
 
             <!-- Page Heading -->
             @if (isset($header))

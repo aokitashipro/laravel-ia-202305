@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'users', // usersに変える
         'passwords' => 'users',
     ],
 
@@ -34,11 +34,21 @@ return [
     | Supported: "session"
     |
     */
+    // 認証の方法・・session認証 // API認証(OAuth2, JWT)
+    // DBテーブル・・User, Owner
 
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+        'users' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'owners' => [
+            'driver' => 'session',
+            'provider' => 'owners',
         ],
     ],
 
@@ -58,11 +68,17 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
+    // Ownerモデル ownersテーブルに情報が入ってないと
+    // 見れないように設定できる
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'owners' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Owner::class,
         ],
 
         // 'users' => [
@@ -93,6 +109,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'owners' => [
+            'provider' => 'owners',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

@@ -11,9 +11,51 @@ use App\Http\Controllers\FurnitureController;
 use App\Http\Controllers\MessageBoardController;
 use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ManyToManyTestController;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\AnalysisController;
 use App\Models\Coach;
 use App\Models\Team;
 use App\Models\Player;
+
+// ログインしてたら表示できる
+// middleware('auth')
+// ガード設定したので
+// ユーザーとしてログインしてたら見れる
+// middleware('auth:ガード名')
+// middleware('auth:users')
+Route::middleware('auth:users')->prefix('skills')
+->name('skills.')->group(function () {
+    Route::get('/', [SkillController::class, 'index'])->name('index');
+    Route::get('/{id}/edit', [SkillController::class, 'edit'])->name('edit');    
+    Route::post('/{id}', [SkillController::class, 'update'])->name('update');
+    // スキル持ってなければ0表示
+    Route::get('/zero-index', [SkillController::class, 'zeroIndex'])->name('zeroIndex');
+    Route::get('/{id}/zero-edit', [SkillController::class, 'zeroEdit'])->name('zeroEdit');
+    Route::post('/{id}/zero-update', [SkillController::class, 'zeroUpdate'])->name('zeroUpdate');
+});
+
+Route::middleware(['auth:users', 'can:manager'])
+->prefix('skills')->name('skills.')->group(function () {
+    Route::get('/skills-all', [SkillController::class, 'showSkillsAll'])->name('skillsAll');
+    Route::get('/create', [SkillController::class, 'create'])->name('create');
+    Route::post('/', [SkillController::class, 'store'])->name('store');
+});
+
+
+Route::middleware('auth:users')->prefix('items')
+->name('items.')->group(function () {
+    Route::get('/', [ManyToManyTestController::class, 'index'])->name('index');
+    Route::get('/purchase', [ManyToManyTestController::class, 'purchase'])->name('purchase');    
+    Route::post('/', [ManyToManyTestController::class, 'store'])->name('store');
+    Route::get('/purchase-history', [ManyToManyTestController::class, 'purchaseHistory'])->name('purchaseHistory');
+    Route::get('/point-history', [ManyToManyTestController::class, 'pointHistory'])->name('pointHistory');
+});
+
+Route::middleware(['auth:user', 'can:paid-user'])->get('items/paid', function(){
+    return '有料ユーザーだけ見えるよ';
+});
+
 
 Route::get('/sale-training', [SaleController::class, 'index']);
 Route::get('/sale-trainingA', [SaleController::class, 'trainingA']);
@@ -50,9 +92,10 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth:users', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:users')->group(function () {
+    Route::get('/analysis', [AnalysisController::class, 'index'])->name('analysis.index');
     Route::resource('cafes', CafeController::class);
     Route::resource('furnitures', FurnitureController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -178,17 +221,5 @@ Route::get('storage_test', function(){
     $files = Storage::files();
     dump($files);
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 

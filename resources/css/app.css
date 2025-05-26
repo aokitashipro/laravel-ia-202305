@@ -1,4 +1,6 @@
 @import url('./style.css');
+@import url('./micromodal.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -19,7 +19,17 @@ class UserSeeder extends Seeder
                 'name' => '青木',
                 'email' => 'test@test.com',
                 'password' => Hash::make('password'),
-            ]
+                'total_point' => 1000,
+                'role' => 0
+            ],
+            [
+                'name' => '山田',
+                'email' => 'test1@test.com',
+                'password' => Hash::make('password'),
+                'total_point' => 2000,
+                'role' => 5
+            ],
             ]);
+
     }
 }

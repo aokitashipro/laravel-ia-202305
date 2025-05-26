@@ -21,7 +21,25 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'total_point', // 追記
+        'role', // 追記
     ];
+
+   	// 1対多の場合は相手のモデルを指定
+	public function pointHistory(){
+        return $this->hasMany(PointHistory::class);
+    }
+
+    // 多対多の場合は(中間テーブルではなく)相手のモデルを指定
+    public function items(){
+        return $this->belongsToMany(Item::class, 'purchase_history')
+        ->withPivot('price', 'amount', 'created_at');
+    }
+
+    public function skills(){
+        return $this->belongsToMany(Skill::class)
+        ->withPivot('score', 'created_at');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
